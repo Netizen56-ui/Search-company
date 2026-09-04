@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Automático en GitHub</title>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; background: #f4f4f9; padding: 2rem; color: #333; }
+        .card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto; }
+        .stat { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #eee; }
+        .stat strong { color: #555; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Monitor del Pipeline (GitHub Edition)</h2>
+        
+        <div class="stat">
+            <strong>Última Ejecución:</strong> <br>
+            <span id="last_run">Cargando...</span>
+        </div>
+        <div class="stat">
+            <strong>Ejecuciones Totales:</strong> <br>
+            <span id="runs">...</span>
+        </div>
+        <div class="stat" style="border: none;">
+            <strong>Último Resultado:</strong> <br>
+            <span id="latest_result">...</span>
+        </div>
+    </div>
+
+    <script>
+        // Le agregamos un timestamp al final de la URL para evitar que el navegador guarde el JSON viejo en caché
+        fetch('data.json?t=' + new Date().getTime())
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('last_run').innerText = data.last_run;
+                document.getElementById('runs').innerText = data.runs;
+                document.getElementById('latest_result').innerText = data.latest_result;
+            })
+            .catch(error => console.error("Error leyendo los datos:", error));
+    </script>
+</body>
+</html>
