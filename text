@@ -1,7 +1,0 @@
-mi_proyecto/
-├── .github/
-│   └── workflows/
-│       └── automatizacion.yml
-├── pipeline.py
-├── data.json
-└── index.html
